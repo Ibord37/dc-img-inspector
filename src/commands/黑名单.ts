@@ -24,7 +24,7 @@ export const 黑名单: ICommand = {
             await interaction.editReply("此命令仅作为斜线命令起作用。(TL: Ini slash command bang.)");
             return;
         }
-        
+
         const member: GuildMember = interaction.member as GuildMember;
         if (!member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
             await interaction.editReply("请提供一张图片。(TL: Mana gambarnya wok?)");

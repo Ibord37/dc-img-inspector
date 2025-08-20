@@ -20,7 +20,7 @@ const handleChatRestriction = async (client: Client, message: Message): Promise<
     const attachment = message.attachments.first();
     const member: GuildMember = message.member as GuildMember;
 
-    if (!attachment?.contentType || !attachment.contentType.startsWith("image/") || !message.guild || member.permissions.has(PermissionFlagsBits.ManageMessages)) return;
+    if (!attachment?.contentType || !attachment.contentType.startsWith("image/") || member.permissions.has(PermissionFlagsBits.ManageMessages) || !message.guild) return;
 
     const hash = await hashImageFromUrl(attachment.url);
 
@@ -45,6 +45,7 @@ const handleChatRestriction = async (client: Client, message: Message): Promise<
             await updateUser(client.botUsers, user);
 
             await message.reply(`☭: 🚫 此图片已被列入黑名单! -${penalty} Social Credits\n☭: 🚫 Foto masuk blacklist wok! -${penalty} Social Credits. (Translated)\nStatus: (${user.socialCredit} / -1000 social credits to timeout)`);
+            await message.delete().then(() => {  });   
             return;
         }
     }
