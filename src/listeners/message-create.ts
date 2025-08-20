@@ -1,7 +1,9 @@
 import {
     Client,
     Events,
-    Message
+    Message,
+    GuildMember,
+    PermissionFlagsBits
 } from "discord.js";
 
 import type { BotUser } from "../utilities/users";
@@ -16,7 +18,9 @@ export default (client: Client): void => {
 
 const handleChatRestriction = async (client: Client, message: Message): Promise<void> => {
     const attachment = message.attachments.first();
-    if (!attachment?.contentType || !attachment.contentType.startsWith("image/")) return;
+    const member: GuildMember = message.member as GuildMember;
+
+    if (!attachment?.contentType || !attachment.contentType.startsWith("image/") || !message.guild || member.permissions.has(PermissionFlagsBits.ManageMessages)) return;
 
     const hash = await hashImageFromUrl(attachment.url);
 
