@@ -1,4 +1,4 @@
-import { ApplicationCommandType, Client, CommandInteraction, ApplicationCommandOptionType } from "discord.js";
+import { ApplicationCommandType, Client, CommandInteraction, ApplicationCommandOptionType, GuildMember, PermissionsBitField, Guild } from "discord.js";
 import { ICommand } from "../interfaces/command";
 
 import { downloadFile } from "../utilities/file";
@@ -24,10 +24,16 @@ export const 黑名单: ICommand = {
             await interaction.editReply("此命令仅作为斜线命令起作用。(TL: Ini slash command bang.)");
             return;
         }
+        
+        const member: GuildMember = interaction.member as GuildMember;
+        if (!member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
+            await interaction.editReply("请提供一张图片。(TL: Mana gambarnya wok?)");
+            return;
+        }
 
         const attachment = interaction.options.getAttachment("图片");
         if (!attachment) {
-            await interaction.editReply("请提供一张图片。(TL: Mana gambarnya wok?)");
+            await interaction.editReply("你没有权限这么做。(TL: Lu gak ada permission untuk ngelakuin ini.)");
             return;
         }
 
