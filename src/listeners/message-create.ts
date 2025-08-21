@@ -1,10 +1,4 @@
-import {
-    Client,
-    Events,
-    Message,
-    GuildMember,
-    PermissionFlagsBits
-} from "discord.js";
+import { Client, Events, Message } from "discord.js";
 
 import type { BotUser } from "../utilities/users";
 import { hammingDistance, hashImageFromUrl } from "../utilities/file";
@@ -18,9 +12,8 @@ export default (client: Client): void => {
 
 const handleChatRestriction = async (client: Client, message: Message): Promise<void> => {
     const attachment = message.attachments.first();
-    const member: GuildMember = message.member as GuildMember;
 
-    if (!attachment?.contentType || !attachment.contentType.startsWith("image/") || member.permissions.has(PermissionFlagsBits.ManageMessages) || !message.guild) return;
+    if (!attachment?.contentType || !attachment.contentType.startsWith("image/") || !message.guild) return;
 
     const hash = await hashImageFromUrl(attachment.url);
 
@@ -49,7 +42,4 @@ const handleChatRestriction = async (client: Client, message: Message): Promise<
             return;
         }
     }
-
-    await message.react("✅");
-
 };

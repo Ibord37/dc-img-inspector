@@ -1,10 +1,4 @@
-import {
-    ButtonInteraction,
-    Client,
-    CommandInteraction,
-    Events,
-    Interaction
-} from "discord.js";
+import { ButtonInteraction, Client, CommandInteraction, Events, Interaction } from "discord.js";
 import { Commands } from "../commands";
 
 export default ( client: Client ): void => {

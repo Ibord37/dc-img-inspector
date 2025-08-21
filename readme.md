@@ -1,1 +1,1 @@
-Only a simple detector.
+Only a simple detector

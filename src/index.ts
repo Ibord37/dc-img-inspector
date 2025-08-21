@@ -8,6 +8,8 @@ import { loadUsers } from "./utilities/users";
 
 import { BOT_TOKEN } from "./config";
 
+const keepAlive = require("./keepAlive");
+
 console.log("图片检查器正在启动...");
 
 declare module "discord.js" {
