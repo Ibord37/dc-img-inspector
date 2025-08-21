@@ -31,7 +31,9 @@ const handleChatRestriction = async (client: Client, message: Message): Promise<
             if (user.socialCredit < -1000) {
                 user.socialCredit += 1000;
 
-                await message.member?.timeout(180 * 60 * 1000, '由于超出了最大违规次数，您将被逮捕三个小时。t');
+                if (message.member?.moderatable)
+                    await message.member?.timeout(180 * 60 * 1000, '由于超出了最大违规次数，您将被逮捕三个小时。t');
+                
                 await message.reply(`☭: 🚫 由于超出了最大违规次数，您将被逮捕三个小时。\n☭: 🚫 Kamu ditahan selama tiga jam karena telah melewati batas jumlah pelanggaran. (Translated)`);
             }
 
